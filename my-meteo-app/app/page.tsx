@@ -5,6 +5,7 @@ import axios from "axios";
 
 import Input from "./components/Input";
 import Current from "./components/Current";
+import { Divider } from "ui-neumorphism";
 import WeatherDetails from "./components/WeatherDetails";
 import WeatherForecast from "./components/WeatherForecast";
 
@@ -35,7 +36,7 @@ const Home = () => {
     let content;
     if (Object.keys(data).length === 0 && error === "") {
         content = (
-            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-136px]">
+            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
                 <h2 className="text-3xl font-bold mb-4 px-12 text-center">
                     Welcome to Weather App
                 </h2>
@@ -46,7 +47,7 @@ const Home = () => {
         );
     } else if (error !== "") {
         content = (
-            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-136px]">
+            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
                 <p>
                     <span className="text-3xl font-bold mb-4 px-12 text-center">
                         Can&apos;t find the city you&apos;re talking about...{" "}
@@ -60,8 +61,8 @@ const Home = () => {
         );
     } else {
         content = (
-            <div className="min-h-screen mt-[-194px] md:mt-[-136px] pt-[194px] md:pt-[136px]">
-                <div className="flex flex-col md:flex-row p-12 items-center justify-between">
+            <div className="pb-12">
+                <div className="flex flex-col md:flex-row p-12 items-center justify-between gap-16">
                     <Current data={data} />
                     <WeatherForecast data={data} />
                 </div>
@@ -78,7 +79,7 @@ const Home = () => {
         <main className="bg-cover h-fit bg-gradient-to-br from-neutral-100 to-neutral-300">
             <div className="  w-full">
                 {/* Input & Logo */}
-                <div className="flex flex-col md:flex-row justify-between items-center p-12">
+                <div className="flex flex-col md:flex-row justify-between items-center px-12 py-6">
                     <Input
                         handleSearch={handleSearch}
                         setLocation={setLocation}
@@ -87,6 +88,7 @@ const Home = () => {
                         Weather App
                     </h1>
                 </div>
+                <Divider />
                 {content}
             </div>
         </main>

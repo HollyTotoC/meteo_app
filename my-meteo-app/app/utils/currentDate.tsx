@@ -1,5 +1,5 @@
 export const getCurrentDate = () => {
-    const currentDate = new Date().toLocaleDateString("fr-FR", {
+    const currentDate = new Date().toLocaleDateString("us-US", {
         weekday: "long",
         year: "numeric",
         month: "long",

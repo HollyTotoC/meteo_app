@@ -46,7 +46,7 @@ const ICONS = {
     MdOutlineVisibility: MdOutlineVisibility,
 };
 
-const WeatherDetails = ({ data }: WeatherDetailsProps) => {
+const WeatherDetails = ({ data, theme }: WeatherDetailsProps) => {
     const details = [
         {
             title: "Windspeed",
@@ -94,7 +94,13 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
         <div className="px-6 md:px-12 py-4">
             <Card inset className="flex flex-col">
                 <CardContent>
-                    <h2 className="mb-6 text-2xl font-bold">Weather Details</h2>
+                    <h2
+                        className={`mb-6 text-2xl font-bold ${
+                            theme === "dark" ? "!text-white" : ""
+                        }`}
+                    >
+                        Weather Details
+                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         {details.map((detail, index) => {
                             const IconComponent = ICONS[detail.icon];
@@ -106,13 +112,33 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
                                 >
                                     <CardContent className="flex items-center justify-between w-full">
                                         <div className=" text-lg">
-                                            <h3 className="font-semibold text-neutral-600">
+                                            <h3
+                                                className={`font-semibold ${
+                                                    theme === "dark"
+                                                        ? "text-neutral-300"
+                                                        : "text-neutral-600"
+                                                } `}
+                                            >
                                                 {detail.title}
                                             </h3>
-                                            <h4>{detail.value}</h4>
+                                            <h4
+                                                className={`${
+                                                    theme === "dark"
+                                                        ? "!text-white"
+                                                        : ""
+                                                }`}
+                                            >
+                                                {detail.value}
+                                            </h4>
                                         </div>
                                         <div>
-                                            <IconComponent className="text-3xl text-neutral-500" />
+                                            <IconComponent
+                                                className={`text-3xl ${
+                                                    theme === "dark"
+                                                        ? "text-neutral-400"
+                                                        : "text-neutral-600"
+                                                }`}
+                                            />
                                         </div>
                                     </CardContent>
                                 </Card>

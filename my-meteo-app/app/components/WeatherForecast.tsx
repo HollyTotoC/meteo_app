@@ -24,7 +24,7 @@ interface WeatherForecastProps {
     };
 }
 
-const WeatherForecast = ({ data }: WeatherForecastProps) => {
+const WeatherForecast = ({ data, theme }: WeatherForecastProps) => {
     return (
         <Card inset className="grow flex justify-center items-center">
             <CardContent className="grow grid grid-cols-2 sm:grid-col-2 md:grid-cols-3 gap-2 lg:grid-cols-5">
@@ -36,7 +36,12 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
                         });
 
                         return (
-                            <div key={index} className="grow flex flex-col">
+                            <div
+                                key={index}
+                                className={`grow flex flex-col ${
+                                    theme === "dark" ? "!text-white" : ""
+                                }`}
+                            >
                                 <div className="p-2 text-center flex flex-col items-center">
                                     <p>{dayOfWeek}</p>
                                     <Image

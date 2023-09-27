@@ -24,7 +24,7 @@ interface CurrentProps {
     setCookieChange: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Current = ({ data, setCookieChange }: CurrentProps) => {
+const Current = ({ data, setCookieChange, theme }: CurrentProps) => {
     const currentDate = getCurrentDate();
     const weatherIcon = data.current.condition.icon;
     return (
@@ -48,7 +48,11 @@ const Current = ({ data, setCookieChange }: CurrentProps) => {
                         </Card>
                     )}
                 </div>
-                <div className="relative">
+                <div
+                    className={`relative ${
+                        theme === "dark" ? "!text-white" : ""
+                    }`}
+                >
                     <div className="flex flex-col gap-1 my-2">
                         <h1 className="text-3xl">Today</h1>
                         <p>{currentDate}</p>

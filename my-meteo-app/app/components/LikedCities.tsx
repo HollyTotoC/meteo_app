@@ -15,7 +15,7 @@ const LikedCities = ({
     likedCities,
     setLocation,
     handleSearch,
-    location,
+    theme,
 }: LikedCitiesProps) => {
     const searchParams = useSearchParams();
     if (!likedCities || likedCities.length === 0) {
@@ -23,13 +23,15 @@ const LikedCities = ({
     }
 
     return (
-        <div className="flex justify-start items-center flex-wrap gap-4 px-6 md:px-12 py-2">
+        <div className="flex justify-start items-stretch flex-wrap gap-4 px-6 md:px-12 py-2">
             <AiFillStar className="text-neutral-400 text-3xl" />
             {likedCities.map((city, index) => {
-                console.log(city, searchParams?.get("loc"));
                 return (
                     <div key={index}>
                         <Button
+                            className={`${
+                                theme === "dark" ? "!text-white" : "!text-black"
+                            }`}
                             onClick={() => {
                                 setLocation(city);
                                 handleSearch(null, city);

@@ -36,18 +36,18 @@ const Home = () => {
     let content;
     if (Object.keys(data).length === 0 && error === "") {
         content = (
-            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
+            <main className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
                 <h2 className="text-3xl font-bold mb-4 px-12 text-center">
                     Welcome to Weather App
                 </h2>
                 <p className="text-xl px-12 text-center">
                     Enter a city name to get a weather forecast
                 </p>
-            </div>
+            </main>
         );
     } else if (error !== "") {
         content = (
-            <div className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
+            <main className="flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px]">
                 <p>
                     <span className="text-3xl font-bold mb-4 px-12 text-center">
                         Can&apos;t find the city you&apos;re talking about...{" "}
@@ -57,19 +57,19 @@ const Home = () => {
                         Try with an other one
                     </span>
                 </p>
-            </div>
+            </main>
         );
     } else {
         content = (
-            <div className="pb-12">
+            <main className="pb-12 flex flex-col flex-1">
                 <div className="flex flex-col lg:flex-row p-6 md:p-12 items-stretch justify-between gap-16">
                     <Current data={data} />
                     <WeatherForecast data={data} />
                 </div>
-                <div>
+                <div className="">
                     <WeatherDetails data={data} />
                 </div>
-            </div>
+            </main>
         );
     }
 
@@ -79,7 +79,7 @@ const Home = () => {
         <main className="bg-cover h-fit bg-gradient-to-br from-neutral-100 to-neutral-300">
             <div className="  w-full">
                 {/* Input & Logo */}
-                <div className="flex flex-col-reverse md:flex-row justify-between items-center px-12 py-4 md:py-6">
+                <header className="flex flex-col-reverse md:flex-row justify-between items-center px-12 py-4 md:py-6">
                     <Input
                         handleSearch={handleSearch}
                         setLocation={setLocation}
@@ -87,7 +87,7 @@ const Home = () => {
                     <h1 className="mb-4 md:mb-0 order-1 py-2 px-4 text-2xl md:text-lg font-bold">
                         Weather App
                     </h1>
-                </div>
+                </header>
                 <Divider />
                 {content}
             </div>

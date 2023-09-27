@@ -28,6 +28,7 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
     return (
         <Card inset className="grow flex justify-center items-center">
             <CardContent className="grow grid grid-cols-2 sm:grid-col-2 md:grid-cols-3 gap-2 lg:grid-cols-5">
+                <h2 className="hidden">Forecast</h2>
                 {data && data.forecast && data.forecast.forecastday ? (
                     data.forecast.forecastday.map((day, index) => {
                         console.log(day.day.condition.icon, "img");
@@ -36,32 +37,27 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
                         });
 
                         return (
-                            <>
-                                <div className="grow flex flex-col">
-                                    <div
-                                        key={index}
-                                        className="p-2 text-center flex flex-col items-center"
-                                    >
-                                        <p>{dayOfWeek}</p>
-                                        <Image
-                                            src={`https:${day.day.condition.icon}`}
-                                            alt={day.day.condition.text}
-                                            width={50}
-                                            height={50}
-                                            className="w-[50px] object-cover"
-                                        />
-                                        <div className="flex flex-row items-center">
-                                            <FaTemperatureFull className="text-red-400" />
-                                            <p>{day.day.maxtemp_c}°C</p>
-                                        </div>
-                                        <div className="flex flex-row items-center">
-                                            <FaTemperatureEmpty className="text-blue-400" />
-                                            <p>{day.day.mintemp_c}°C</p>
-                                        </div>
+                            <div key={index} className="grow flex flex-col">
+                                <div className="p-2 text-center flex flex-col items-center">
+                                    <p>{dayOfWeek}</p>
+                                    <Image
+                                        src={`https:${day.day.condition.icon}`}
+                                        alt={day.day.condition.text}
+                                        width={50}
+                                        height={50}
+                                        className="w-[50px] object-cover"
+                                    />
+                                    <div className="flex flex-row items-center">
+                                        <FaTemperatureFull className="text-red-400" />
+                                        <p>{day.day.maxtemp_c}°C</p>
                                     </div>
-                                    <Divider className=" inline-block lg:hidden w-1/3 self-center" />
+                                    <div className="flex flex-row items-center">
+                                        <FaTemperatureEmpty className="text-blue-400" />
+                                        <p>{day.day.mintemp_c}°C</p>
+                                    </div>
                                 </div>
-                            </>
+                                <Divider className=" inline-block lg:hidden w-1/3 self-center" />
+                            </div>
                         );
                     })
                 ) : (

@@ -109,7 +109,7 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
                                             <h3 className="font-semibold text-neutral-600">
                                                 {detail.title}
                                             </h3>
-                                            <h3>{detail.value}</h3>
+                                            <h4>{detail.value}</h4>
                                         </div>
                                         <div>
                                             <IconComponent className="text-3xl text-neutral-500" />

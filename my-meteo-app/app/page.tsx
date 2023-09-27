@@ -62,7 +62,7 @@ const Home = () => {
     } else {
         content = (
             <div className="pb-12">
-                <div className="flex flex-col md:flex-row p-12 items-center justify-between gap-16">
+                <div className="flex flex-col lg:flex-row p-6 md:p-12 items-stretch justify-between gap-16">
                     <Current data={data} />
                     <WeatherForecast data={data} />
                 </div>
@@ -79,12 +79,12 @@ const Home = () => {
         <main className="bg-cover h-fit bg-gradient-to-br from-neutral-100 to-neutral-300">
             <div className="  w-full">
                 {/* Input & Logo */}
-                <div className="flex flex-col md:flex-row justify-between items-center px-12 py-6">
+                <div className="flex flex-col-reverse md:flex-row justify-between items-center px-12 py-4 md:py-6">
                     <Input
                         handleSearch={handleSearch}
                         setLocation={setLocation}
                     />
-                    <h1 className="mb-8 md:mb-0 order-1 py-2 px-4 font-bold">
+                    <h1 className="mb-4 md:mb-0 order-1 py-2 px-4 text-2xl md:text-lg font-bold">
                         Weather App
                     </h1>
                 </div>

@@ -50,7 +50,7 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
     const details = [
         {
             title: "Windspeed",
-            value: `${data.current.wind_kph} kh`,
+            value: `${data.current.wind_kph}\u00A0kh`,
             icon: "FiWind",
         },
         {
@@ -60,12 +60,12 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
         },
         {
             title: "Humidity",
-            value: `${data.current.humidity} %`,
+            value: `${data.current.humidity}\u00A0%`,
             icon: "FiDroplet",
         },
         {
             title: "Air Pressure",
-            value: data.current.pressure_mb,
+            value: `${data.current.pressure_mb}\u00A0mb`,
             icon: "BsSpeedometer2",
         },
         {
@@ -80,18 +80,18 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
         },
         {
             title: "Feels Like",
-            value: `${data.current.feelslike_c} °C`,
+            value: `${data.current.feelslike_c}\u00A0°C`,
             icon: "FiThermometer",
         },
         {
             title: "Visibility",
-            value: `${data.current.vis_km} Km`,
+            value: `${data.current.vis_km}\u00A0Km`,
             icon: "MdOutlineVisibility",
         },
     ];
 
     return (
-        <div className="px-12 py-4">
+        <div className="px-6 md:px-12 py-4">
             <Card inset className="flex flex-col">
                 <CardContent>
                     <h2 className="mb-6 text-2xl font-bold">Weather Details</h2>
@@ -101,7 +101,7 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
                             return (
                                 <Card
                                     key={index}
-                                    elevation={2}
+                                    elevation={1}
                                     className="grow flex items-center"
                                 >
                                     <CardContent className="flex items-center justify-between w-full">

@@ -7,3 +7,7 @@
     display: flex;
     align-items: center;
 }
+
+html, body, main {
+    height: 100%;
+}

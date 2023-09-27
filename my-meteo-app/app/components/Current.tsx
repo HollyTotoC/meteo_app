@@ -5,6 +5,7 @@ import { getCurrentDate } from "../utils/currentDate";
 import { IoLocationSharp } from "react-icons/io5";
 import Image from "next/image";
 import { Card, CardContent, Divider } from "ui-neumorphism";
+import LikeButton from "./LikeButton";
 
 interface CurrentProps {
     data: {
@@ -20,9 +21,10 @@ interface CurrentProps {
             region: string;
         };
     };
+    setCookieChange: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Current = ({ data }: CurrentProps) => {
+const Current = ({ data, setCookieChange }: CurrentProps) => {
     const currentDate = getCurrentDate();
     const weatherIcon = data.current.condition.icon;
     return (
@@ -30,7 +32,7 @@ const Current = ({ data }: CurrentProps) => {
             elevation={3}
             className="flex flex-col mb-0 items-start gap-2 grow-0"
         >
-            <CardContent className="flex flex-col md:flex-row lg:flex-col gap-12 lg:gap-4 self-center">
+            <CardContent className="flex flex-col md:flex-row lg:flex-col gap-12 lg:gap-4 self-center relative">
                 <div className="flex flex-col-reverse items-center justify-center">
                     {weatherIcon && (
                         <Card inset className="!rounded-full">
@@ -46,7 +48,7 @@ const Current = ({ data }: CurrentProps) => {
                         </Card>
                     )}
                 </div>
-                <div className="">
+                <div className="relative">
                     <div className="flex flex-col gap-1 my-2">
                         <h1 className="text-3xl">Today</h1>
                         <p>{currentDate}</p>
@@ -66,6 +68,10 @@ const Current = ({ data }: CurrentProps) => {
                             </div>
                         ) : null}
                     </div>
+                    <LikeButton
+                        location={data.location.name}
+                        setCookieChange={setCookieChange}
+                    />
                 </div>
             </CardContent>
         </Card>

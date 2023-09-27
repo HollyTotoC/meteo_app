@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import Input from "./components/Input";
 import Current from "./components/Current";
+import LikedCities from "./components/LikedCities";
 import { Divider } from "ui-neumorphism";
 import WeatherDetails from "./components/WeatherDetails";
 import WeatherForecast from "./components/WeatherForecast";
@@ -17,14 +19,21 @@ const Home = () => {
     const router = useRouter();
     const [location, setLocation] = useState(searchParams.get("loc") || "");
     const [error, setError] = useState("");
-    console.log(searchParams.get("loc"), "loc");
-    console.log(location, "location");
+    const [likedCities, setLikedCities] = useState<string[]>([]);
+    const [cookieChange, setCookieChange] = useState(0);
+    console.log("location", location);
+    console.log("cookieChange", cookieChange);
+    console.log("likedCities", likedCities);
 
-    const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" && location.trim() !== "") {
-            e.preventDefault();
-            router.push(`/?loc=${location}`);
-            const apiUrl = `/api/weatherSearch/route?location=${location}`;
+    const handleSearch = async (
+        e: React.KeyboardEvent<HTMLInputElement> | null,
+        forcedLocation?: string
+    ) => {
+        const searchLocation = forcedLocation || location;
+        if (!e || (e && e.key === "Enter" && searchLocation.trim() !== "")) {
+            if (e) e.preventDefault();
+            router.push(`/?loc=${searchLocation}`);
+            const apiUrl = `/api/weatherSearch/route?location=${searchLocation}`;
             try {
                 const res = await axios.get(apiUrl);
                 if (res.status !== 200) {
@@ -39,6 +48,13 @@ const Home = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const savedCities = Cookies.get("likedCities")
+            ? JSON.parse(Cookies.get("likedCities")!)
+            : [];
+        setLikedCities(savedCities);
+    }, [cookieChange]);
 
     const handleUrl = async () => {
         if (searchParams.get("loc") !== null) {
@@ -92,7 +108,7 @@ const Home = () => {
         content = (
             <main className="pb-12 flex flex-col flex-1">
                 <div className="flex flex-col lg:flex-row p-6 md:p-12 items-stretch justify-between gap-16">
-                    <Current data={data} />
+                    <Current data={data} setCookieChange={setCookieChange} />
                     <WeatherForecast data={data} />
                 </div>
                 <div className="">
@@ -118,6 +134,11 @@ const Home = () => {
                     </h1>
                 </header>
                 <Divider />
+                <LikedCities
+                    likedCities={likedCities}
+                    setLocation={setLocation}
+                    handleSearch={handleSearch}
+                />
                 {content}
             </div>
         </main>

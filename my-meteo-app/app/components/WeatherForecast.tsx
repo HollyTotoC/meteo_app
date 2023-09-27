@@ -31,7 +31,6 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
                 <h2 className="hidden">Forecast</h2>
                 {data && data.forecast && data.forecast.forecastday ? (
                     data.forecast.forecastday.map((day, index) => {
-                        console.log(day.day.condition.icon, "img");
                         const dayOfWeek = format(new Date(day.date), "eee", {
                             locale: fr,
                         });

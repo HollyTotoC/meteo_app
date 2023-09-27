@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Input from "./components/Input";
@@ -9,14 +9,21 @@ import { Divider } from "ui-neumorphism";
 import WeatherDetails from "./components/WeatherDetails";
 import WeatherForecast from "./components/WeatherForecast";
 
+import { useSearchParams, useRouter } from "next/navigation";
+
 const Home = () => {
     const [data, setData] = useState({});
-    const [location, setLocation] = useState("");
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const [location, setLocation] = useState(searchParams.get("loc") || "");
     const [error, setError] = useState("");
+    console.log(searchParams.get("loc"), "loc");
+    console.log(location, "location");
 
     const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && location.trim() !== "") {
             e.preventDefault();
+            router.push(`/?loc=${location}`);
             const apiUrl = `/api/weatherSearch/route?location=${location}`;
             try {
                 const res = await axios.get(apiUrl);
@@ -32,6 +39,28 @@ const Home = () => {
             }
         }
     };
+
+    const handleUrl = async () => {
+        if (searchParams.get("loc") !== null) {
+            const apiUrl = `/api/weatherSearch/route?location=${location}`;
+            try {
+                const res = await axios.get(apiUrl);
+                if (res.status !== 200) {
+                    throw new Error();
+                }
+                setData(res.data);
+                setLocation("");
+                setError("");
+            } catch (error) {
+                setError("City not found");
+                setData({});
+            }
+        }
+    };
+
+    useEffect(() => {
+        handleUrl();
+    }, []);
 
     let content;
     if (Object.keys(data).length === 0 && error === "") {

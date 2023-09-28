@@ -9,6 +9,7 @@ interface LikedCitiesProps {
     setLocation: any;
     handleSearch: any;
     location: string;
+    theme: string;
 }
 
 const LikedCities = ({

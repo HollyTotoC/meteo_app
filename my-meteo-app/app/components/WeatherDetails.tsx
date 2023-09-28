@@ -33,6 +33,7 @@ interface WeatherDetailsProps {
             ];
         };
     };
+    theme: string;
 }
 
 const ICONS = {

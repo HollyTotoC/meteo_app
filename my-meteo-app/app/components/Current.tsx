@@ -22,6 +22,7 @@ interface CurrentProps {
         };
     };
     setCookieChange: React.Dispatch<React.SetStateAction<number>>;
+    theme: string;
 }
 
 const Current = ({ data, setCookieChange, theme }: CurrentProps) => {

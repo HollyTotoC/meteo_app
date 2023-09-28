@@ -22,6 +22,7 @@ interface WeatherForecastProps {
             }[];
         };
     };
+    theme: string;
 }
 
 const WeatherForecast = ({ data, theme }: WeatherForecastProps) => {

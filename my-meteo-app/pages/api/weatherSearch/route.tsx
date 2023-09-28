@@ -12,7 +12,7 @@ export default async function handler(
         const apiRes = await axios.get(url);
 
         if (apiRes.status !== 200) {
-            throw new Error();
+            throw new Error(`API responded with status: ${apiRes.status}`);
         }
 
         res.status(200).json(apiRes.data);

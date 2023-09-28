@@ -1,8 +1,15 @@
 "use client";
 import { AiOutlineSearch } from "react-icons/ai";
+import { TextField } from "ui-neumorphism";
 
 import dynamic from "next/dynamic";
-import { TextField } from "ui-neumorphism";
+
+const DynamicTextField: typeof TextField = dynamic(
+    () => import("ui-neumorphism").then((mod) => mod.TextField),
+    {
+        ssr: false,
+    }
+);
 
 interface InputProps {
     handleSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -10,18 +17,28 @@ interface InputProps {
     theme: "light" | "dark";
 }
 
-const Input = ({ handleSearch, setLocation, theme }: InputProps) => {
+type TextFieldChangeEvent = {
+    value: string;
+    id: string;
+    valid: boolean;
+    event: React.SyntheticEvent<HTMLInputElement>;
+    // Ajoutez d'autres propriétés si nécessaire
+};
+
+const Input: React.FC<InputProps> = ({ handleSearch, setLocation, theme }) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // Prevent form submission
     };
+
     const inputDynamicStyles =
         theme === "dark" ? { color: "white" } : { color: "black" };
+
     return (
         <form
             className="flex items-center md:w-2/4 w-full md:order-1"
             onSubmit={handleSubmit}
         >
-            <TextField
+            <DynamicTextField
                 type="text"
                 className="w-full"
                 inputStyles={{
@@ -29,15 +46,15 @@ const Input = ({ handleSearch, setLocation, theme }: InputProps) => {
                     width: "100%",
                     height: "100%",
                     minWidth: "100%",
-                    "padding-left": "1rem",
+                    paddingLeft: "1rem",
                     ...inputDynamicStyles,
                 }}
                 label="Looking for a city ?"
                 onKeyDown={handleSearch}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setLocation(e.target.value);
+                onChange={(e: TextFieldChangeEvent) => {
+                    setLocation(e.value);
                 }}
-            ></TextField>
+            ></DynamicTextField>
             <div className="ml-[-45px] cursor-pointer z-10">
                 <AiOutlineSearch />
             </div>

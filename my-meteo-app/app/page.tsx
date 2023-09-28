@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ThemeProvider from "./utils/ThemeProvider";
-
+import { fetchWeatherData } from "./utils/fetchWeatherData";
 import Input from "./components/Input";
 import Current from "./components/Current";
 import LikedCities from "./components/LikedCities";
@@ -78,19 +78,15 @@ const Home = () => {
         if (!e || (e && e.key === "Enter" && searchLocation.trim() !== "")) {
             if (e) e.preventDefault();
             router.push(`/?loc=${searchLocation}`);
-            const apiUrl = `/api/weatherSearch/route?location=${searchLocation}`;
-            try {
-                const res = await axios.get(apiUrl);
-                if (res.status !== 200) {
-                    throw new Error();
-                }
-                setData(res.data);
-                setLocation("");
-                setError("");
-            } catch (error) {
-                setError("City not found");
+            const { data, error } = await fetchWeatherData(searchLocation);
+            if (error) {
+                setError(error);
                 setData(defaultData);
+                return;
             }
+            setData(data);
+            setLocation("");
+            setError("");
         }
     };
 
@@ -103,24 +99,21 @@ const Home = () => {
 
     const handleUrl = async () => {
         if (searchParams?.get("loc") !== null) {
-            const apiUrl = `/api/weatherSearch/route?location=${location}`;
-            try {
-                const res = await axios.get(apiUrl);
-                if (res.status !== 200) {
-                    throw new Error();
-                }
-                setData(res.data);
-                setLocation("");
-                setError("");
-            } catch (error) {
-                setError("City not found");
+            const { data, error } = await fetchWeatherData(location);
+            if (error) {
+                setError(error);
                 setData(defaultData);
+                return;
             }
+            setData(data);
+            setLocation("");
+            setError("");
         }
     };
 
     useEffect(() => {
         handleUrl();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     let content;

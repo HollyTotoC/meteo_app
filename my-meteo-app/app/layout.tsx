@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
     title: "My meteo app",
     description:
-        "A simple Neuromorphic meteo app by Théo-toto Certa. www.totocerta.dev",
+        "A simple Neumorphic meteo app by Théo-toto Certa => www.totocerta.dev",
 };
 
 export default function RootLayout({

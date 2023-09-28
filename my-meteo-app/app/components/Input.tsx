@@ -34,17 +34,10 @@ const Input = ({ handleSearch, setLocation, theme }: InputProps) => {
                 }}
                 label="Looking for a city ?"
                 onKeyDown={handleSearch}
-                onChange={(e) => {
-                    setLocation(e.value);
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setLocation(e.target.value);
                 }}
             ></TextField>
-            {/* <input
-                type="text"
-                placeholder="Looking for a city ?"
-                className="w-full bg-transparent border-b-2 border-black placeholder-black pl-2"
-                onKeyDown={handleSearch}
-                onChange={(e) => setLocation(e.target.value)}
-            /> */}
             <div className="ml-[-45px] cursor-pointer z-10">
                 <AiOutlineSearch />
             </div>

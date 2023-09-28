@@ -2,13 +2,7 @@
 import { AiOutlineSearch } from "react-icons/ai";
 
 import dynamic from "next/dynamic";
-
-const TextField = dynamic(
-    () => import("ui-neumorphism").then((mod) => mod.TextField),
-    {
-        ssr: false,
-    }
-);
+import { TextField } from "ui-neumorphism";
 
 interface InputProps {
     handleSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;

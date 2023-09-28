@@ -8,8 +8,7 @@ interface LikedCitiesProps {
     likedCities: string[];
     setLocation: any;
     handleSearch: any;
-    location: string;
-    theme: string;
+    theme: "light" | "dark";
 }
 
 const LikedCities = ({

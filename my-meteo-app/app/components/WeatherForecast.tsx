@@ -1,4 +1,5 @@
 "use client";
+import { WeatherData } from "../type";
 import Image from "next/image";
 import { Card, CardContent } from "ui-neumorphism";
 import { format } from "date-fns";
@@ -7,22 +8,8 @@ import { FaTemperatureEmpty, FaTemperatureFull } from "react-icons/fa6";
 import { Divider } from "ui-neumorphism";
 
 interface WeatherForecastProps {
-    data: {
-        forecast?: {
-            forecastday?: {
-                date: string;
-                day: {
-                    condition: {
-                        icon: string;
-                        text: string;
-                    };
-                    maxtemp_c: number;
-                    mintemp_c: number;
-                };
-            }[];
-        };
-    };
-    theme: string;
+    data: WeatherData;
+    theme: "light" | "dark";
 }
 
 const WeatherForecast = ({ data, theme }: WeatherForecastProps) => {

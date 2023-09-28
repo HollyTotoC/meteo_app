@@ -1,4 +1,5 @@
 "use client";
+import { WeatherData } from "../type";
 
 import {
     FiWind,
@@ -13,27 +14,8 @@ import { MdOutlineVisibility } from "react-icons/md";
 import { Card, CardContent } from "ui-neumorphism";
 
 interface WeatherDetailsProps {
-    data: {
-        current: {
-            wind_kph: number;
-            wind_dir: string;
-            humidity: number;
-            pressure_mb: number;
-            feelslike_c: number;
-            vis_km: number;
-        };
-        forecast: {
-            forecastday: [
-                {
-                    astro: {
-                        sunrise: string;
-                        sunset: string;
-                    };
-                }
-            ];
-        };
-    };
-    theme: string;
+    data: WeatherData;
+    theme: "light" | "dark";
 }
 
 type IconKeys =

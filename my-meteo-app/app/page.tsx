@@ -1,5 +1,6 @@
 "use client";
 
+import { WeatherData } from "./type";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -17,10 +18,50 @@ import { FaSun, FaMoon } from "react-icons/fa";
 
 const Home = () => {
     const [theme, setTheme] = useState<"light" | "dark">("light");
-    const [data, setData] = useState({});
+    const defaultData: WeatherData = {
+        current: {
+            condition: {
+                icon: "",
+                text: "",
+            },
+            wind_kph: 0,
+            wind_dir: "",
+            humidity: 0,
+            pressure_mb: 0,
+            feelslike_c: 0,
+            vis_km: 0,
+            temp_c: 0,
+        },
+        location: {
+            name: "",
+            region: "",
+        },
+        forecast: {
+            forecastday: [
+                {
+                    date: "",
+                    day: {
+                        condition: {
+                            icon: "",
+                            text: "",
+                        },
+                        maxtemp_c: 0,
+                        mintemp_c: 0,
+                    },
+                    astro: {
+                        sunrise: "",
+                        sunset: "",
+                    },
+                },
+            ],
+        },
+    };
+
+    const [data, setData] = useState<WeatherData>(defaultData);
+
     const searchParams = useSearchParams();
     const router = useRouter();
-    const [location, setLocation] = useState(searchParams.get("loc") || "");
+    const [location, setLocation] = useState(searchParams?.get("loc") || "");
     const [error, setError] = useState("");
     const [likedCities, setLikedCities] = useState<string[]>([]);
     const [cookieChange, setCookieChange] = useState(0);
@@ -48,7 +89,7 @@ const Home = () => {
                 setError("");
             } catch (error) {
                 setError("City not found");
-                setData({});
+                setData(defaultData);
             }
         }
     };
@@ -61,7 +102,7 @@ const Home = () => {
     }, [cookieChange]);
 
     const handleUrl = async () => {
-        if (searchParams.get("loc") !== null) {
+        if (searchParams?.get("loc") !== null) {
             const apiUrl = `/api/weatherSearch/route?location=${location}`;
             try {
                 const res = await axios.get(apiUrl);
@@ -73,7 +114,7 @@ const Home = () => {
                 setError("");
             } catch (error) {
                 setError("City not found");
-                setData({});
+                setData(defaultData);
             }
         }
     };
@@ -83,7 +124,14 @@ const Home = () => {
     }, []);
 
     let content;
-    if (Object.keys(data).length === 0 && error === "") {
+    if (
+        data.current.condition.icon === "" &&
+        data.current.condition.text === "" &&
+        data.current.temp_c === 0 &&
+        data.location.name === "" &&
+        data.location.region === "" &&
+        error === ""
+    ) {
         content = (
             <main
                 className={`flex flex-col items-center justify-center h-screen mt-[-194px] md:mt-[-96px] ${

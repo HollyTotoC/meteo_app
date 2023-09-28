@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-
+import { WeatherData } from "../type";
 import { getCurrentDate } from "../utils/currentDate";
 import { IoLocationSharp } from "react-icons/io5";
 import Image from "next/image";
@@ -8,21 +8,9 @@ import { Card, CardContent, Divider } from "ui-neumorphism";
 import LikeButton from "./LikeButton";
 
 interface CurrentProps {
-    data: {
-        current: {
-            condition: {
-                icon: string;
-                text: string;
-            };
-            temp_c: number;
-        };
-        location: {
-            name: string;
-            region: string;
-        };
-    };
+    data: WeatherData;
     setCookieChange: React.Dispatch<React.SetStateAction<number>>;
-    theme: string;
+    theme: "light" | "dark";
 }
 
 const Current = ({ data, setCookieChange, theme }: CurrentProps) => {

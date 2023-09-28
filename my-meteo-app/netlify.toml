@@ -1,4 +1,3 @@
 [build]
-  base = "my-meteo-app/"
   command = "yarn build"
   publish = "my-meteo-app/.next"

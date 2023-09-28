@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import ThemeProvider from "app/utils/ThemeProvider";
+import ThemeProvider from "./utils/ThemeProvider";
 
 import Input from "./components/Input";
 import Current from "./components/Current";

@@ -36,7 +36,21 @@ interface WeatherDetailsProps {
     theme: string;
 }
 
-const ICONS = {
+type IconKeys =
+    | "FiWind"
+    | "FiCompass"
+    | "FiDroplet"
+    | "FiSunrise"
+    | "FiSunset"
+    | "FiThermometer"
+    | "BsSpeedometer2"
+    | "MdOutlineVisibility";
+
+type IconType = {
+    [key in IconKeys]: React.ComponentType<any>;
+};
+
+const ICONS: IconType = {
     FiWind: FiWind,
     FiCompass: FiCompass,
     FiDroplet: FiDroplet,
@@ -104,7 +118,8 @@ const WeatherDetails = ({ data, theme }: WeatherDetailsProps) => {
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         {details.map((detail, index) => {
-                            const IconComponent = ICONS[detail.icon];
+                            const IconComponent =
+                                ICONS[detail.icon as IconKeys];
                             return (
                                 <Card
                                     key={index}
